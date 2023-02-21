@@ -3,17 +3,14 @@ from dateutil import relativedelta
 
 import pandas as pd
 import numpy as np
-from django.db.models import Max
 
-from ifric.balancete.models import Focus
-from ifric.receita.models import Igpm, Ipca
-from ifric.receita.utils.utils import create_dict_values
+from indices_economicos.indices.indice import GetIGPM, GetIPCA
 
 
 pd.set_option("display.precision", 15)
 
 
-class Indice:
+class IndiceSimulado:
     
     def __init__(self, indice: str, data: date) -> None:
         self.indice = indice
@@ -38,7 +35,7 @@ class Indice:
         self.df_calculo["variacao"] = None
     
     def simulacao_juros(self):
-        indice = Igpm if self.indice == "IGPM" else Ipca
+        indice =  GetIGPM() if self.indice == "IGP-M" else Ipca
         self.df = pd.DataFrame.from_records(
             list(indice.objects.all().values(
                 'data', 'variacao', 'acumulado'

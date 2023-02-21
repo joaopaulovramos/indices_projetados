@@ -15,8 +15,9 @@ class IPEAData:
     def __init__(self) -> None:
         self.api = "http://www.ipeadata.gov.br/api/odata4/Metadados%s"
         self.df_series=  None
-    
-    def time_series(self):
+        self._time_series()
+
+    def _time_series(self):
         api = self.api % (self.pos_fix)
         try:
             self.req = requests.get(api)
@@ -43,23 +44,14 @@ class GetIGPM(IPEAData):
     pos_fix = "('IGP12_IGPM12')/Valores"
     nome = "IGPM"
     
-    def write(self):
-        Igpm.objects.all().delete()
-        Igpm.objects.bulk_create(Igpm(**vals) for vals in self.df_series.to_dict('records'))
-
     def register(self):
         self.time_series()
-        self.write()
 
 
 class GetIPCA(IPEAData):
     pos_fix = "('PRECOS12_IPCA12')/Valores"
     nome = "IPCA"
-    
-    def write(self):
-        Ipca.objects.all().delete()
-        Ipca.objects.bulk_create(Ipca(**vals) for vals in self.df_series.to_dict('records'))
 
     def register(self):
         self.time_series()
-        self.write()
+        
