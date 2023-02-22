@@ -19,7 +19,6 @@ class Focus:
 
     def _last_bizday(self):
         
-
         if self.data < date(self.data.year, 3,31):
             return get_date(date(self.data.year-1, 12,31))        
 
@@ -30,22 +29,30 @@ class Focus:
             return get_date(self.data.year, 6, 30)
         return get_date(self.data.year, 9,30)
     
-    def _get_values(self):
+    def __conection_bcb(self):
+        endpoint = ('ExpectativasMercadoTop5Selic' 
+                    if self.indice == 'SELIC' 
+                    else 'ExpectativasMercadoTop5Anuais'
+        )
         em = Expectativas()
-        ep = em.get_endpoint('ExpectativasMercadoTop5Anuais')
-        last_bizday = self._last_bizday()
-        self.df_focus =(ep.query()
+        ep = em.get_endpoint(endpoint)
+        self.last_bizday = self._last_bizday()
+        df_focus =(ep.query()
             .filter(ep.Indicador == self.indice)
-            .filter(ep.Data >= last_bizday+relativedelta(days=-3), ep.Data <= last_bizday)
+            .filter(ep.Data >= self.last_bizday+relativedelta(days=-3), ep.Data <= self.last_bizday)
             .filter(ep.tipoCalculo=='L')
             .orderby(ep.Data.asc())
             .select(ep.Data, ep.DataReferencia, ep.Mediana)
             .collect())
-        self.df_focus = self.df_focus.loc[self.df_focus['Data'] == last_bizday.isoformat()]
-        self.df_focus.columns = ['data', 'ano', 'valor']
-        self.df_focus['ano'] = self.df_focus['ano'].astype(int)
+        df_focus = df_focus.loc[df_focus['Data'] == self.last_bizday.isoformat()]
+        df_focus.columns = ['data', 'ano', 'valor']
+        df_focus['ano'] = df_focus['ano'].astype(int)
+        return df_focus
+    
+    def _get_values(self):
+        self.df_focus = self.__conection_bcb()
         max_ano = self.df_focus['ano'].max()
-        competencia = last_bizday.year
+        competencia = self.last_bizday.year
         self._dict_values(max_ano, competencia)
 
     def _dict_values(self, max_ano, competencia):
