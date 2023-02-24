@@ -4,6 +4,7 @@ import calendar
 
 import pandas as pd
 import requests
+import numpy as np
 
 
 pd.set_option("display.precision", 15)
@@ -44,5 +45,7 @@ class IPEAData:
                 self.df_series = self.df_series.drop(["nome", "tercodigo", "codigo"], axis=1)
                 self.df_series["data"] = self.df_series["data"].apply(lambda x: x.replace(day=calendar.monthrange(x.year, x.month)[1]))
                 self.df_series["nome"] = self.nome
+                self.df_series['variacao'] = self.df_series["valor"] / self.df_series["valor"].shift(1)
+                self.df_series["acumulado"] = self.df_series["variacao"].fillna(1).rolling(window=12).apply(np.prod)
             except Exception as e:
                 print(e)

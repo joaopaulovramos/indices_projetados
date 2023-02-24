@@ -4,17 +4,16 @@ from dateutil import relativedelta
 import pandas as pd
 import numpy as np
 
-from indices_economicos.indices.indice import GetIGPM, GetIPCA
-
 
 pd.set_option("display.precision", 15)
 
 
 class IndiceSimulado:
     
-    def __init__(self, indice: str, data: date) -> None:
+    def __init__(self, indice: str, data: date, df) -> None:
         self.indice = indice
         self.data = data
+        self.df = df
         self.data_final = date(2050,12,31)
         
         
@@ -35,24 +34,8 @@ class IndiceSimulado:
         self.df_calculo["variacao"] = None
     
     def simulacao_juros(self):
-        indice =  GetIGPM() if self.indice == "IGP-M" else Ipca
-        self.df = pd.DataFrame.from_records(
-            list(indice.objects.all().values(
-                'data', 'variacao', 'acumulado'
-                )
-            )
-        )
-        competencia = Focus.objects.filter(
-            competencia__lte=self.data
-            ).aggregate(maximo=Max('competencia'))['maximo']
-
-        self.focus = create_dict_values(list(
-                Focus.objects.filter(
-                    competencia=competencia,
-                    focus = self.indice
-                    ).values_list('ano', 'valor')
-                )
-            )
+        
+        
         
         self.df["data"] = pd.to_datetime(self.df["data"])
         self.df["data"] = self.df["data"].dt.date

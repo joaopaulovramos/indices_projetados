@@ -21,3 +21,5 @@ def test_time_series(mocker, resultado):
     assert ipea_data.df_series is not None
     assert ipea_data.df_series['valor'].min() == 707.488
     assert ipea_data.df_series.iloc[0]['nome'] == 'IGPM'
+    assert ipea_data.df_series['acumulado'].min() == 1.0378822817861568
+    assert ipea_data.df_series['variacao'].min() == 0.9902861918583602
