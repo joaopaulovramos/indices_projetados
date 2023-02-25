@@ -1,4 +1,11 @@
+from datetime import date
+
 import pytest
+from pytest_mock import mocker
+
+from indices.simulacao_juros import IndiceSimulado
+from indices_economico.indices.indice import IPEAData
+
 
 RESULTADO = {
   "@odata.context":"http://ipeadata.gov.br/api/odata4/$metadata#Valores","value":[
@@ -104,6 +111,17 @@ RESULTADO = {
   ]
 }
 
+
+IGPM = 'IGP12_IGPM12'
+IPCA = 'PRECOS12_IPCA12'
+
+
 @pytest.fixture()
-def resultado():
-    return RESULTADO
+def ipea_data(mocker):
+    ipea = IPEAData(IGPM)
+    mocker.patch.object(ipea, '_get_json', return_value=RESULTADO)
+    return ipea
+
+@pytest.fixture(scope="session")
+def indice():
+    return IndiceSimulado('IGP-M', date(2022,3,31), IGPM)

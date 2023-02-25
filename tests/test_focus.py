@@ -17,4 +17,4 @@ def test_focus(focus):
     assert focus.data == date(2023,2,21)
     assert focus.indice == 'IPCA'
     assert focus.df_focus is not None
-    assert focus.dict_focus[2023] == 5.4384
+    assert focus.dict_focus[2023] == 0.054384

@@ -23,11 +23,11 @@ class Focus:
             return get_date(date(self.data.year-1, 12,31))        
 
         elif self.data < date(self.data.year, 6,30):
-            return get_date(self.data.year, 3, 31)
+            return get_date(date(self.data.year, 3, 31))
         
         elif self.data < date(self.data.year, 9,30):
-            return get_date(self.data.year, 6, 30)
-        return get_date(self.data.year, 9,30)
+            return get_date(date(self.data.year, 6, 30))
+        return get_date(date(self.data.year, 9,30))
     
     def __conection_bcb(self):
         endpoint = ('ExpectativasMercadoTop5Selic' 
@@ -59,8 +59,8 @@ class Focus:
 
         dict_focus = self.df_focus.to_dict('records')
         self.dict_focus = {
-            x['ano']:x['valor'] for x in dict_focus
+            x['ano']:round(x['valor']/100,6) for x in dict_focus
         }
         meta = METAS[competencia][self.indice]
         for ano in range(max_ano+1, 2051):
-            self.dict_focus[ano] = meta
+            self.dict_focus[ano] = round(meta/100,6)

@@ -3,6 +3,9 @@ from dateutil import relativedelta
 
 import pandas as pd
 import numpy as np
+from bcb_.focus import Focus
+
+from indices.indice import IPEAData
 
 
 pd.set_option("display.precision", 15)
@@ -10,12 +13,11 @@ pd.set_option("display.precision", 15)
 
 class IndiceSimulado:
     
-    def __init__(self, indice: str, data: date, df) -> None:
+    def __init__(self, indice: str, data: date, pos_fix) -> None:
         self.indice = indice
         self.data = data
-        self.df = df
-        self.data_final = date(2050,12,31)
-        
+        self.pos_fix = pos_fix
+        self.data_final = date(2050,12,31)       
         
     def future_frame(self):
         meses = relativedelta.relativedelta(self.data_final, self.data)
@@ -34,9 +36,11 @@ class IndiceSimulado:
         self.df_calculo["variacao"] = None
     
     def simulacao_juros(self):
-        
-        
-        
+        indice = IPEAData(self.pos_fix)
+        indice.time_series()
+        focus = Focus(self.indice, self.data)
+        self.focus = focus.dict_focus
+        self.df = indice.df_series
         self.df["data"] = pd.to_datetime(self.df["data"])
         self.df["data"] = self.df["data"].dt.date
         self.df = self.df[
