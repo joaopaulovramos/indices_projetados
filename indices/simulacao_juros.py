@@ -61,7 +61,7 @@ class IndiceSimulado:
         self.valor_indice = np.power(
             (self.focus[self.data.year] +1)/acumulado,1/meses_restantes)
     
-    def simulacao(self, mes:int) -> None:
+    def simulacao(self) -> None:
         self.simulacao_juros()
         self.valor_indice_ano()
         
@@ -91,6 +91,9 @@ class IndiceSimulado:
             acumulado_simulacao, 
             axis=1
         )
+    
+    def simulacao_mes(self, mes):
+        self.simulacao()
         self.df = self.df[
                 pd.to_datetime(self.df["data"]).dt.month == mes
             ]
