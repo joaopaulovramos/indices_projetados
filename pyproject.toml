@@ -2,9 +2,11 @@
 name = "simulador-indices"
 version = "0.1.0"
 description = "Simulador para gerar Previsoes de Indices Economicos Futuros"
-authors = ["Your Name <you@example.com>"]
+authors = ["JPVR"]
 readme = "README.md"
-packages = [{include = "simulador_indices"}]
+packages = [{include = "simulador_indices"}, {include = "bcb_"}]
+license = "MIT"
+include = ["ANBIMA.cal"]
 
 [tool.poetry.dependencies]
 python = "^3.9"

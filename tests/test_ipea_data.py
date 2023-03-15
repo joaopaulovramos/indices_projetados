@@ -1,6 +1,6 @@
 from pytest_mock import mocker
 
-from indices_economico.indices.indice import IPEAData
+from indices_economico.simulador_indices.indice import IPEAData
 
 
 
