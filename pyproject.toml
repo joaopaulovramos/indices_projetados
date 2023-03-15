@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "simulador-indices"
+version = "0.1.0"
+description = "Simulador para gerar Previsoes de Indices Economicos Futuros"
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+packages = [{include = "simulador_indices"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pandas = "^1.5.3"
+requests = "^2.28.2"
+python-bcb = "^0.1.8"
+bizdays = "^1.0.8"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "7.2.1"
+pytest-mock = "^3.10.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
