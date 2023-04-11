@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 from bcb_.focus import Focus
 
-from indices.indice import IPEAData
+from simulador_indices.indice import IPEAData
 
 
 pd.set_option("display.precision", 15)

@@ -3,8 +3,8 @@ from datetime import date
 import pytest
 from pytest_mock import mocker
 
-from indices.simulacao_juros import IndiceSimulado
-from indices_economico.indices.indice import IPEAData
+from simulador_indices.simulacao_juros import IndiceSimulado
+from simulador_indices.indice import IPEAData
 
 
 RESULTADO = {

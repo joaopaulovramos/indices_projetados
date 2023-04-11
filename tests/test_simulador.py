@@ -1,6 +1,6 @@
 from datetime import date
 
-from indices.simulacao_juros import IndiceSimulado
+from  simulador_indices.simulacao_juros import IndiceSimulado
 
 
 def test_simulador_is_not_none(indice):

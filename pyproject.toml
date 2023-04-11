@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "simulador-indices"
-version = "0.1.0"
+version = "0.2.0"
 description = "Simulador para gerar Previsoes de Indices Economicos Futuros"
 authors = ["JPVR"]
 readme = "README.md"

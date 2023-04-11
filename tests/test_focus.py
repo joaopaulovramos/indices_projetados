@@ -3,7 +3,7 @@ from datetime import date
 import pandas as pd
 import pytest
 
-from indices_economico.bcb_.focus import Focus
+from bcb_.focus import Focus
 
 
 @pytest.fixture
