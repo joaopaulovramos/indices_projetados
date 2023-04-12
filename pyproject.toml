@@ -1,10 +1,9 @@
 [tool.poetry]
 name = "simulador-indices"
-version = "0.2.2"
+version = "0.2.3"
 description = "Simulador para gerar Previsoes de Indices Economicos Futuros"
 authors = ["JPVR <jpramos@taticca.com.br>"]
 readme = "README.md"
-packages = [{include = "simulador_indices"}, {include = "bcb_"}]
 license = "MIT"
 include = ["ANBIMA.cal"]
 

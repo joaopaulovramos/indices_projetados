@@ -91,6 +91,8 @@ class IndiceSimulado:
             acumulado_simulacao, 
             axis=1
         )
+        self.df['nome'] = self.nome
+        self.df = self.df.loc[:, ["data", "nome", "variacao", "acumulado"]
     
     def simulacao_mes(self, mes):
         self.simulacao()
