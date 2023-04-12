@@ -91,11 +91,11 @@ class IndiceSimulado:
             acumulado_simulacao, 
             axis=1
         )
-        self.df['nome'] = self.nome
-        self.df = self.df.loc[:, ["data", "nome", "variacao", "acumulado"]
+        self.df['nome'] = self.indice
+        self.df = self.df.loc[:, ["data", "nome", "variacao", "acumulado"]]
     
     def simulacao_mes(self, mes):
         self.simulacao()
         self.df = self.df[
                 pd.to_datetime(self.df["data"]).dt.month == mes
-            ]
+            ].reset_index(drop=True)
