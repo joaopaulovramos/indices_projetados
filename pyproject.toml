@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "simulador-indices"
-version = "0.2.0"
+version = "0.2.2"
 description = "Simulador para gerar Previsoes de Indices Economicos Futuros"
-authors = ["JPVR"]
+authors = ["JPVR <jpramos@taticca.com.br>"]
 readme = "README.md"
 packages = [{include = "simulador_indices"}, {include = "bcb_"}]
 license = "MIT"

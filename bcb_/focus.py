@@ -4,7 +4,7 @@ from dateutil.relativedelta import relativedelta
 import pandas as pd
 from bcb import Expectativas
 from bizdays import Calendar
-from indices_economico.bcb_.metas import METAS
+from bcb_.metas import METAS
 
 
 def get_date(data):
